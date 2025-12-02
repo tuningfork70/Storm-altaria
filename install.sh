@@ -34,6 +34,7 @@ fi
 # This is required for lib32-* packages (Steam, Wine, GPU drivers)
 if grep -q "#\[multilib\]" /etc/pacman.conf; then
     echo "Enabling multilib repository..."
+    # Uncomment the [multilib] section in pacman.conf
     sudo sed -i "/\[multilib\]/,/Include = \/etc\/pacman.d\/mirrorlist/s/^#//" /etc/pacman.conf
     sudo pacman -Sy --noconfirm
     echo "Multilib enabled."
