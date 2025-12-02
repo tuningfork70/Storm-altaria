@@ -30,9 +30,21 @@ else
     echo "Yay is already installed."
 fi
 
+# 1.1 CRITICAL FIX: Enable multilib repository
+# This is required for lib32-* packages (Steam, Wine, GPU drivers)
+if grep -q "#\[multilib\]" /etc/pacman.conf; then
+    echo "Enabling multilib repository..."
+    sudo sed -i "/\[multilib\]/,/Include = \/etc\/pacman.d\/mirrorlist/s/^#//" /etc/pacman.conf
+    sudo pacman -Sy --noconfirm
+    echo "Multilib enabled."
+else
+    echo "Multilib already enabled."
+fi
+
 # 1.5 Conflict Cleanup
 echo "Removing potential conflicting packages..."
 # Remove default audio/bluetooth packages that conflict with our stack
+# We use -Rdd to force removal without checking dependencies (safe because we install replacements immediately)
 sudo pacman -Rdd --noconfirm pipewire-media-session pulseaudio jack2 2>/dev/null || true
 
 # 2. Install Base Packages
