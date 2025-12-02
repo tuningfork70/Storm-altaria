@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # -----------------------------------------------------
-# STORM ALTARIA INSTALLER (INTEL FIX + LOOP FIX)
+# STORM ALTARIA INSTALLER (INTEL + LOOP FIX)
 # -----------------------------------------------------
 
 set -e
@@ -29,33 +29,29 @@ else
   echo "Yay is already installed."
 fi
 
-# 1.1 Multilib Fix
+# 1.1 Fix Multilib (32-bit support)
 echo "Configuring multilib repository..."
 sudo sed -i "/\[multilib\]/,/Include/ s/^#//" /etc/pacman.conf
 echo "Refreshing package databases..."
 sudo pacman -Syy --noconfirm
 
-# 1.5 Conflict Cleanup
-echo "Removing potential conflicting packages..."
-sudo pacman -Rdd --noconfirm pipewire-media-session pulseaudio jack2 2>/dev/null || true
-
-# 2. Install Base Packages
+# 2. Install Base Packages (Hyprland, Kitty, etc.)
 echo "Installing System Packages from pkglist.txt..."
 if [ -f "pkglist.txt" ]; then
+  # We use a loop to ensure 'pkglist.txt' is read cleanly
   yay -S --needed --noconfirm $(grep -vE "^\s*#" pkglist.txt | tr '\n' ' ')
 else
   echo "pkglist.txt not found! Skipping package install."
 fi
 
 # ------------------------------------------------------
-# 2.5 Hardware Auto-Detection (FIXED)
+# 2.5 Hardware Auto-Detection
 # ------------------------------------------------------
 echo "Detecting Hardware..."
 
-# FIX: Install pciutils so 'lspci' command actually exists!
+# Ensuring pciutils is present for the check (just in case)
 sudo pacman -S --needed --noconfirm pciutils
 
-# GPU Driver Logic
 if lspci | grep -i "nvidia" &>/dev/null; then
   echo "Nvidia GPU detected. Installing Nvidia drivers..."
   yay -S --needed --noconfirm linux-headers nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
@@ -67,12 +63,12 @@ elif lspci | grep -i "amd" &>/dev/null && lspci | grep -i "vga" &>/dev/null; the
   yay -S --needed --noconfirm xf86-video-amdgpu vulkan-radeon lib32-vulkan-radeon
 
 elif lspci | grep -i "intel" &>/dev/null && lspci | grep -i "vga" &>/dev/null; then
-  echo "Intel GPU detected. Installing Mesa/Vulkan..."
-  # FIX: Explicitly installing vulkan-intel which was missed before
-  yay -S --needed --noconfirm vulkan-intel lib32-vulkan-intel intel-media-driver
+  echo "Intel GPU detected. Installing Full Intel Stack..."
+  # FIX: Added intel-media-driver and libva-intel-driver for hardware accel
+  yay -S --needed --noconfirm mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-media-driver libva-intel-driver
 fi
 
-# CPU Microcode Logic
+# CPU Microcode
 if grep -q "AuthenticAMD" /proc/cpuinfo; then
   echo "AMD CPU detected. Installing microcode..."
   yay -S --needed --noconfirm amd-ucode
@@ -114,4 +110,47 @@ chmod +x "$HOME/.config/hypr/scripts/"*.sh 2>/dev/null || true
 # 4. PATH PATCHING
 echo "Patching hardcoded paths from '$SOURCE_USER' to '$USER'..."
 find "$HOME/.config" "$HOME/.local/share/applications" -type f -exec grep -Iq "/home/$SOURCE_USER" {} \; -exec sed -i "s|/home/$SOURCE_USER|/home/$USER|g" {} +
-echo "
+echo "Paths updated."
+
+# ------------------------------------------------------
+# 4.5. ANTI-LOGIN LOOP PATCH (CRITICAL)
+# ------------------------------------------------------
+echo "Applying Anti-Login Loop Patch to .zshrc..."
+# This modifies the .zshrc extracted from your tar.gz
+# It ensures Hyprland only starts on TTY1.
+# If it crashes, you can switch to TTY2 (Ctrl+Alt+F2) and login safely.
+
+cat >> "$HOME/.zshrc" <<EOF
+
+# --- STORM ALTARIA AUTOSTART ---
+# Only start Hyprland on TTY1 to avoid login loops on other TTYs
+if [ -z "\$DISPLAY" ] && [ "\$XDG_VTNR" -eq 1 ]; then
+  exec Hyprland
+fi
+EOF
+
+# 5. Services
+echo "Enabling Services..."
+sudo systemctl enable --now NetworkManager
+if command -v bluetoothd &>/dev/null; then
+  sudo systemctl enable --now bluetooth
+fi
+
+# 6. Spicetify Apply
+if [ -d "/opt/spotify" ] && command -v spicetify &>/dev/null; then
+  echo "Patching Spotify..."
+  sudo chmod a+wr /opt/spotify
+  sudo chmod a+wr /opt/spotify/Apps -R
+  spicetify backup apply || true
+  spicetify config current_theme Comfy color_scheme SoftCloud || true
+  spicetify apply || true
+fi
+
+# 7. Shell
+echo "Changing shell to Zsh..."
+if [ "$SHELL" != "/usr/bin/zsh" ]; then
+  chsh -s /usr/bin/zsh
+fi
+
+echo ""
+echo "SETUP COMPLETE! Please reboot your system."
