@@ -30,28 +30,23 @@ else
     echo "Yay is already installed."
 fi
 
-# 1.1 CRITICAL FIX: Enable multilib repository
-# This is required for lib32-* packages (Steam, Wine, GPU drivers)
-if grep -q "#\[multilib\]" /etc/pacman.conf; then
-    echo "Enabling multilib repository..."
-    # Uncomment the [multilib] section in pacman.conf
-    sudo sed -i "/\[multilib\]/,/Include = \/etc\/pacman.d\/mirrorlist/s/^#//" /etc/pacman.conf
-    sudo pacman -Sy --noconfirm
-    echo "Multilib enabled."
-else
-    echo "Multilib already enabled."
-fi
+# 1.1 CRITICAL FIX: Force Enable Multilib Repository
+echo "Configuring multilib repository..."
+# We run this unconditionally. It finds the section from [multilib] down to the Include line
+# and removes the '#' from the start of the line.
+sudo sed -i "/\[multilib\]/,/Include/ s/^#//" /etc/pacman.conf
+
+# Force a full database refresh to ensure we see the new packages
+echo "Refreshing package databases..."
+sudo pacman -Syy --noconfirm
 
 # 1.5 Conflict Cleanup
 echo "Removing potential conflicting packages..."
-# Remove default audio/bluetooth packages that conflict with our stack
-# We use -Rdd to force removal without checking dependencies (safe because we install replacements immediately)
 sudo pacman -Rdd --noconfirm pipewire-media-session pulseaudio jack2 2>/dev/null || true
 
 # 2. Install Base Packages
 echo "Installing System Packages from pkglist.txt..."
 if [ -f "pkglist.txt" ]; then
-    # Install packages, ignoring comments and empty lines
     yay -S --needed --noconfirm $(grep -vE "^\s*#" pkglist.txt | tr '\n' ' ')
 else
     echo "pkglist.txt not found! Skipping package install."
@@ -65,6 +60,7 @@ echo "Detecting Hardware..."
 # GPU Driver Logic
 if lspci | grep -i "nvidia" &>/dev/null; then
     echo "Nvidia GPU detected. Installing Nvidia drivers..."
+    # Now that multilib is definitely enabled, these lib32 packages will work
     yay -S --needed --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
 elif lspci | grep -i "amd" &>/dev/null && lspci | grep -i "vga" &>/dev/null; then
     echo "AMD GPU detected. Installing Mesa/Vulkan..."
@@ -122,7 +118,6 @@ echo "Paths updated."
 # 5. Services
 echo "Enabling Services..."
 sudo systemctl enable --now NetworkManager
-# Only enable bluetooth if bluez was actually installed
 if command -v bluetoothd &>/dev/null; then
     sudo systemctl enable --now bluetooth
 fi
