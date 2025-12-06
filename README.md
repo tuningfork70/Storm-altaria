@@ -27,7 +27,7 @@ do not install any packages or apps right now, not even basic things such as dri
 
 CONGRATULATIONS! You have now installed arch linux the easy way!
 
-# 2. get my setup
+# 2. get my setup <the set up isnt done yet and there will be problems>
 - in the login page, enter your username followed by password; you are now in the system!
 - run `nmtui` to configure internet, if you run into problems at this step, contact me
 - run `ping google.com` to see if your internet is working, it should be sending and receiving packets, once you confirm it, stop it by keyboard interrupt (ctrl+C)
