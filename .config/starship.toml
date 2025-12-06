@@ -1,0 +1,74 @@
+# ⚡ STORM ALTARIA STARSHIP CONFIG
+
+# 1. Global Layout
+add_newline = true
+format = """
+$directory\
+$git_branch\
+$git_status\
+$rust\
+$python\
+$nodejs\
+$golang\
+$fill\
+$cmd_duration\
+$time\
+$line_break\
+$character"""
+
+# 2. The Directory (Blue Cloud)
+[directory]
+style = "fg:#151921 bg:#00B4D8 bold"
+format = "[](#00B4D8)[  $path ]($style)[](#00B4D8) "
+truncation_length = 3
+truncation_symbol = "…/"
+
+# 3. Git Branch (Pink Cloud - Only shows in repos)
+[git_branch]
+symbol = " "
+style = "fg:#E6EFF5 bg:#F498B8 bold"
+format = "[](#F498B8)[$symbol$branch]($style)[](#F498B8) "
+
+[git_status]
+style = "fg:#F498B8 bold"
+format = "([$all_status$ahead_behind]($style) )"
+
+# 4. Language Modules (Dark Clouds - Auto detect)
+[rust]
+symbol = "🦀 "
+style = "fg:#E6EFF5 bg:#151921"
+format = "[](#151921)[$symbol($version)]($style)[](#151921) "
+
+[python]
+symbol = "🐍 "
+style = "fg:#E6EFF5 bg:#151921"
+format = "[](#151921)[$symbol($version)]($style)[](#151921) "
+
+[nodejs]
+symbol = " "
+style = "fg:#E6EFF5 bg:#151921"
+format = "[](#151921)[$symbol($version)]($style)[](#151921) "
+
+[golang]
+symbol = "🐹 "
+style = "fg:#E6EFF5 bg:#151921"
+format = "[](#151921)[$symbol($version)]($style)[](#151921) "
+
+# 5. Right Side Info (Spacer + Time)
+[fill]
+symbol = " "
+
+[cmd_duration]
+min_time = 2000
+format = "took [$duration](bold yellow) "
+
+[time]
+disabled = false
+style = "fg:#3E4B59"
+format = "[$time]($style)"
+time_format = "%H:%M"
+
+# 6. The Input Arrow (Bottom Line)
+[character]
+success_symbol = "[➜](bold #00B4D8)"
+error_symbol = "[✗](bold #FF5555)"

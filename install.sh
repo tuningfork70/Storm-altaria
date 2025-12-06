@@ -47,7 +47,7 @@ if grep -q "#\[multilib\]" /etc/pacman.conf; then
 else
   log "Multilib is already enabled."
 fi
-
+sudo pacman -S --noconfirm ttf-jetbrains-mono-nerd noto-fonts noto-fonts-cjk noto-fonts-emoji
 # 2. Install Base Packages
 log "Installing System Packages from pkglist.txt..."
 if [ -f "pkglist.txt" ]; then
@@ -99,6 +99,7 @@ CONFIGS=(
   ".config/fontconfig" ".config/btop" ".config/nvim" ".config/glava"
   ".config/qt5ct" ".config/qimgv" ".config/qalculate"
   ".local/share/applications" ".zshrc"
+  ".config/starship.toml"
 )
 
 log "Backing up existing configs to $BACKUP_DIR..."

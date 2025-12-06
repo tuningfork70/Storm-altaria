@@ -19,7 +19,6 @@ hyprlock
 hyprpaper
 hyprshade
 hyprshot
-imagemagick
 jq
 kitty
 kvantum
@@ -33,12 +32,10 @@ mpv-thumbfast-git
 mpv-uosc-git
 neovim
 networkmanager
-noto-fonts-emoji
 nwg-look
 obs-pipewire-audio-capture-bin
 obs-studio
 openssh
-otf-ipafont
 pamixer
 papirus-icon-theme
 pavucontrol
@@ -51,8 +48,6 @@ qalculate-gtk
 qimgv
 qt5ct
 qt6-wayland
-rofi-calc
-rofi-emoji
 rust-analyzer
 slurp
 socat
@@ -62,10 +57,8 @@ starship
 swaync
 timeshift
 tldr
-ttf-jetbrains-mono-nerd
 unzip
 vesktop
-virtualbox
 waybar
 wireplumber
 wl-clipboard
