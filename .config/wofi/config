@@ -1,0 +1,26 @@
+# --- Layout ---
+mode=drun
+columns=2
+allow_images=true
+insensitive=true
+
+# --- Geometry ---
+# We need width to be at least 500px to fit 2 columns comfortably
+width=600
+height=400
+location=center
+
+# --- Search ---
+prompt=Apps...
+# Enable Pango Markup (Fixes "<b>Bold</b>" showing as raw text)
+allow_markup=true
+
+# Case insensitive search
+insensitive=true
+
+# Smart matching
+mode=drun
+
+# Fix "ugly" alignment
+image_size=24
+gtk_dark=false

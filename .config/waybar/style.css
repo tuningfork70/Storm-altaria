@@ -1,0 +1,126 @@
+/* --- GLOBAL RESET --- */
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: 800;
+    font-size: 12px;       /* Smaller Font */
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: #181E23;
+}
+
+/* --- TOOLTIPS (The Popup) --- */
+/* --- TOOLTIPS (Hover Menu) --- */
+tooltip {
+    background: rgba(230, 239, 245, 0.95); /* Cloud White (Slightly see-through) */
+    border: 2px solid #4AA3DF;              /* Blue Border */
+    border-radius: 15px;
+}
+
+tooltip label {
+    color: #3E4B59;            /* Soft Blue-Grey (Not harsh black) */
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: normal;       /* <--- THIS FIXES THE BOLDNESS */
+    font-size: 14px;
+    padding: 10px;
+}
+/* --- THE SHARED CLOUD BUBBLES (Slimmed) --- */
+#workspaces,
+#tray,
+#custom-notification,
+#custom-power,
+#taskbar,
+#media,
+#controls,
+#hardware,
+#connectivity {
+    background: #E6EFF5;
+    color: #181E23;
+    
+    border: 2px solid #4AA3DF;
+    border-radius: 15px;      /* Tighter Corners */
+    padding: 4px 12px;        /* Slimmer Padding */
+    margin: 3px 2px;          /* Tighter Spacing */
+    
+    box-shadow: 3px 3px 0px #4AA3DF; /* Slightly smaller shadow offset */
+}
+
+/* --- CLOCK (Inverted Accent) --- */
+#clock {
+    background: #4AA3DF;
+    color: #FFFFFF;
+    
+    border: 2px solid #E6EFF5;
+    border-radius: 15px;
+    padding: 4px 16px;        /* Slimmer */
+    margin: 3px 2px;
+    
+    box-shadow: 3px 3px 0px #E6EFF5;
+}
+
+/* --- WORKSPACES INNER --- */
+#workspaces button {
+    color: #4AA3DF; 
+    padding: 0 4px;           /* Tighter numbers */
+}
+#workspaces button.active {
+    color: #F498B8;
+    font-weight: 900;
+}
+
+/* --- GROUP INNER MODULES (The Blend) --- */
+#media #custom-prev,
+#media #mpris,
+#media #custom-next,
+#controls #pulseaudio,
+#controls #backlight,
+#hardware #cpu,
+#hardware #memory,
+#connectivity #network,
+#connectivity #bluetooth {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0 5px;           /* Tighter inner spacing */
+    min-width: 0;
+    color: #181E23;
+}
+
+/* Specific Color Tweaks */
+#media button { color: #4AA3DF; }
+#connectivity #network { color: #4AA3DF; }
+#connectivity #bluetooth { color: #4AA3DF; }
+
+/* Hover Effects */
+#media #custom-prev:hover,
+#media #mpris:hover,
+#media #custom-next:hover {
+    background: rgba(74, 163, 223, 0.1);
+    border-radius: 5px;
+}
+
+/* Disconnected States */
+#connectivity #network.disconnected,
+#connectivity #bluetooth.disconnected,
+#connectivity #bluetooth.off {
+    color: #F498B8;
+}
+
+/* --- NOTIFICATION --- */
+#custom-notification {
+    font-size: 14px;          /* Slightly larger than base */
+    color: #4AA3DF;
+    padding-right: 14px;
+}
+
+/* --- POWER BUTTON --- */
+#custom-power {
+    color: #FF5555;
+    border-color: #FF5555;
+    box-shadow: 3px 3px 0px #FF5555;
+}

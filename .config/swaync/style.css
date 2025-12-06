@@ -1,0 +1,110 @@
+/* --- GLOBAL FONT --- */
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+}
+
+/* --- THE MAIN PANEL (Cloud Card) --- */
+.control-center {
+    background: #E6EFF5;       /* Cloud White */
+    border: 3px solid #4AA3DF; /* Vibrant Blue */
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(74, 163, 223, 0.4);
+    padding: 15px;
+}
+
+/* --- WIDGETS (Mute/DND) --- */
+.widget-dnd {
+    background: #FFFFFF;
+    margin: 10px 0;
+    border-radius: 12px;
+    padding: 5px;
+    border: 1px solid rgba(74, 163, 223, 0.3);
+}
+
+.widget-dnd > switch {
+    background: #DCE5EB;
+    border-radius: 12px;
+}
+
+.widget-dnd > switch:checked {
+    background: #F498B8; /* Pink when active */
+}
+
+/* --- HEADER TITLE & BUTTONS --- */
+.widget-title {
+    color: #4AA3DF;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.widget-title > button {
+    background: #FFFFFF;
+    color: #181E23;
+    border: 1px solid #4AA3DF;
+    border-radius: 12px;
+    padding: 5px 15px;
+}
+
+.widget-title > button:hover {
+    background: #4AA3DF;
+    color: #FFFFFF;
+}
+
+.widget-label > label {
+    color: #181E23;
+}
+
+/* --- THE NOTIFICATION CARDS (Forced White) --- */
+/* We use !important to override the default GTK dark theme */
+
+.notification-row {
+    outline: none;
+    margin: 10px 0;
+}
+
+.notification-row .notification-background {
+    background-color: #FFFFFF !important;  /* Force White */
+    color: #181E23 !important;             /* Force Dark Text */
+    border: 2px solid #4AA3DF !important;  /* Force Blue Border */
+    border-radius: 15px !important;
+    padding: 10px !important;
+    box-shadow: none !important;
+    margin-bottom: 10px;
+}
+
+/* --- TEXT ELEMENTS --- */
+/* Header/App Name */
+.notification-row .notification-background .notification-header {
+    color: #4AA3DF;
+}
+
+/* Title Text */
+.notification-row .notification-background .notification-title {
+    color: #4AA3DF;
+    font-size: 1.1rem;
+}
+
+/* Body Text */
+.notification-row .notification-background .notification-body {
+    color: #181E23 !important;
+}
+
+/* Time Stamp */
+.notification-row .notification-background .notification-time {
+    color: #888888 !important;
+}
+
+/* --- ACTION BUTTONS --- */
+.notification-row .notification-background .notification-action {
+    background: #E6EFF5 !important;
+    color: #181E23 !important;
+    border: 1px solid #4AA3DF !important;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.notification-row .notification-background .notification-action:hover {
+    background: #4AA3DF !important;
+    color: #FFFFFF !important;
+}

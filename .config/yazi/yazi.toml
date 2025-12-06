@@ -1,0 +1,35 @@
+# --- OPENERS (Define the tools) ---
+[opener]
+image = [
+    { run = 'qimgv "$@"', orphan = true, desc = "Open" },
+]
+
+edit = [
+    { run = 'nvim "$@"', block = true, desc = "Edit" },
+]
+
+play = [
+    { run = 'mpv "$@"', orphan = true, desc = "Play" },
+]
+
+open = [
+    { run = 'xdg-open "$@"', desc = "Open System Default" },
+]
+
+# --- RULES (Map files to tools) ---
+[open]
+rules = [
+    # 1. Images -> qimgv
+    { mime = "image/*", use = "image" },
+
+    # 2. Video/Audio -> mpv
+    { mime = "video/*", use = "play" },
+    { mime = "audio/*", use = "play" },
+
+    # 3. Text/Code -> Neovim
+    { mime = "text/*", use = "edit" },
+    { mime = "application/json", use = "edit" },
+
+    # 4. Fallback -> Open with System Default (instead of force edit)
+    { name = "*", use = "open" },
+]

@@ -1,8 +1,6 @@
-7zip
 alsa-utils
 bibata-cursor-theme
 bluetuith
-bluez
 bluez-utils
 brightnessctl
 btop
@@ -12,7 +10,6 @@ fastfetch
 fd
 ffmpegthumbnailer
 fzf
-gimp
 git
 glava
 grim
@@ -20,6 +17,7 @@ hypridle
 hyprland
 hyprlock
 hyprpaper
+hyprshade
 hyprshot
 imagemagick
 jq
@@ -39,6 +37,8 @@ noto-fonts-emoji
 nwg-look
 obs-pipewire-audio-capture-bin
 obs-studio
+openssh
+otf-ipafont
 pamixer
 papirus-icon-theme
 pavucontrol
@@ -51,6 +51,8 @@ qalculate-gtk
 qimgv
 qt5ct
 qt6-wayland
+rofi-calc
+rofi-emoji
 rust-analyzer
 slurp
 socat
@@ -58,10 +60,12 @@ spicetify-cli
 spotify
 starship
 swaync
+timeshift
+tldr
 ttf-jetbrains-mono-nerd
-unarchiver
 unzip
 vesktop
+virtualbox
 waybar
 wireplumber
 wl-clipboard
@@ -70,6 +74,8 @@ wofi-emoji
 wtype
 xdg-desktop-portal
 xdg-desktop-portal-hyprland
+yay
+yay-debug
 yazi
 zen-browser-bin
 zoxide

@@ -1,0 +1,175 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "margin-top": 6,
+    "margin-left": 10,
+    "margin-right": 10,
+    "spacing": 0,
+
+    // --- MODULE LAYOUT ---
+    "modules-left": ["custom/power", "hyprland/workspaces", "tray", "group/media"],
+    "modules-center": ["clock"],
+    "modules-right": ["group/controls", "group/hardware", "group/connectivity", "custom/notification"],
+
+    // --- POWER BUTTON ---
+    "custom/power": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "bash ~/.config/hypr/scripts/powermenu.sh",
+        "on-scroll-up": "",
+        "on-scroll-down": ""
+    },
+
+    // --- WORKSPACES (Scroll Disabled) ---
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "on-click": "activate",
+        "sort-by-number": true,
+        "disable-scroll": true,    // FIX: Stops "funny" movement
+        "all-outputs": true
+    },
+
+    // --- TRAY ---
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8,
+        "on-scroll-up": "",
+        "on-scroll-down": ""
+    },
+
+    // --- MEDIA GROUP ---
+    "group/media": {
+        "orientation": "horizontal",
+        "modules": ["custom/prev", "mpris", "custom/next"]
+    },
+    "custom/prev": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "playerctl previous",
+        "on-scroll-up": "",
+        "on-scroll-down": ""
+    },
+    "custom/next": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "playerctl next",
+        "on-scroll-up": "",
+        "on-scroll-down": ""
+    },
+    "mpris": {
+        "format": "{player_icon}",
+        "format-paused": "{status_icon}",
+        "player-icons": {"default": "", "mpv": "", "spotify": ""},
+        "status-icons": {"paused": ""},
+        "tooltip-format": "{title}\n{artist}\n{album}",
+        "max-length": 30,
+        "on-scroll-up": "",
+        "on-scroll-down": ""
+    },
+
+    // --- CLOCK ---
+    "clock": {
+        "format": " {:%I:%M %p   %a, %b %e}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
+        "on-scroll-up": "",
+        "on-scroll-down": ""
+    },
+
+    // --- CONTROLS GROUP ---
+    "group/controls": {
+        "orientation": "horizontal",
+        "modules": ["pulseaudio", "backlight"]
+    },
+    "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": " Muted",
+    "format-icons": {"default": ["", "", ""]},
+
+    // Clicks
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "bash $HOME/.config/hypr/scripts/audio_changer.sh",
+
+    // SCROLL FIX: Use your targeted script, not the default command
+    "on-scroll-up": "bash $HOME/.config/hypr/scripts/volume_control.sh up",
+    "on-scroll-down": "bash $HOME/.config/hypr/scripts/volume_control.sh down"
+},    "backlight": {
+        // Device line REMOVED to fix crash (Auto-detect is safer)
+        "format": "{icon}",
+        "tooltip-format": "Brightness: {percent}%",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "on-scroll-up": "brightnessctl s 5%+",
+        "on-scroll-down": "brightnessctl s 5%-"
+    },
+
+    // --- HARDWARE GROUP (Locked Down) ---
+    "group/hardware": {
+        "orientation": "horizontal",
+        "modules": ["cpu", "memory"]
+    },
+    "cpu": {
+        "interval": 5,
+        "format": " {usage}%",
+        "max-length": 10,
+        "on-scroll-up": "",   // FIX: Prevents crash
+        "on-scroll-down": ""
+    },
+    "memory": {
+        "interval": 10,
+        "format": " {percentage}%",
+        "max-length": 10,
+        "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G",
+        "on-scroll-up": "",   // FIX: Prevents crash
+        "on-scroll-down": ""
+    },
+
+    // --- CONNECTIVITY GROUP ---
+    "group/connectivity": {
+        "orientation": "horizontal",
+        "modules": ["bluetooth", "network"]
+    },
+    "network": {
+        "format-wifi": "{icon}",
+        "format-ethernet": "",
+        "format-disconnected": "",
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "tooltip-format": "{essid}\n {bandwidthDownBytes}    {bandwidthUpBytes}",
+        "on-scroll-up": "",
+        "on-scroll-down": ""
+    },
+    "bluetooth": {
+        "format": "",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "format-connected": "󰂱",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "on-click": "bash $HOME/.config/hypr/scripts/bluetooth_menu.sh",
+        "on-click-right": "kitty --title float_bluetuith -e bluetuith",
+        "on-scroll-up": "",
+        "on-scroll-down": ""
+    },
+
+    // --- NOTIFICATIONS ---
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "<span foreground='#F498B8'><sup></sup></span>",
+            "none": "",
+            "dnd-notification": "<span foreground='#F498B8'><sup></sup></span>",
+            "dnd-none": "",
+            "inhibited-notification": "<span foreground='#F498B8'><sup></sup></span>",
+            "inhibited-none": "",
+            "dnd-inhibited-notification": "<span foreground='#F498B8'><sup></sup></span>",
+            "dnd-inhibited-none": ""
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true,
+        "on-scroll-up": "",
+        "on-scroll-down": ""
+    }
+}

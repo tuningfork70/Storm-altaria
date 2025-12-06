@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Pokémon Showdown
+Comment=Competitive Pokémon Simulator
+# --new-window makes it look like an app
+# --user-data-dir creates a separate profile (Isolated cookies/login)
+Exec=zen-browser --new-window "https://play.pokemonshowdown.com"
+
+Icon=~/Downloads/showdown.png
+Terminal=false
+Type=Application
+Categories=Game;
+StartupWMClass=pokemon-showdown

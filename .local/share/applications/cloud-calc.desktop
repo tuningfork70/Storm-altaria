@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Cloud Calculator
+Comment=Solve math and units via Wofi
+Exec=~/.config/hypr/scripts/cloud_calc.sh
+Icon=calc
+Terminal=false
+Categories=Utility;Calculator;
+Keywords=calc;math;convert;

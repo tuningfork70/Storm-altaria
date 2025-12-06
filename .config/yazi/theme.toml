@@ -1,0 +1,48 @@
+# --- STORM ALTARIA YAZI THEME ---
+
+[mgr]
+# Status Bar
+cwd = { fg = "#00B4D8" }
+hovered = { fg = "#0B0F19", bg = "#00B4D8" }
+preview_hovered = { underline = true }
+
+# Find/Search
+find_keyword = { fg = "#F498B8", italic = true, bold = true }
+find_position = { fg = "#F498B8", bg = "reset", italic = true, bold = true }
+
+# Markers
+marker_selected = { fg = "#F498B8", bg = "#F498B8" }
+marker_copied   = { fg = "#00B4D8", bg = "#00B4D8" }
+marker_cut      = { fg = "#FF5555", bg = "#FF5555" }
+
+# Tab Bar
+tab_active   = { fg = "#0B0F19", bg = "#00B4D8" }
+tab_inactive = { fg = "#E6EFF5", bg = "#151921" }
+tab_width    = 1
+
+[status]
+separator_open  = ""
+separator_close = ""
+separator_style = { fg = "#151921", bg = "#151921" }
+
+# Mode Colors (Normal = Blue, Select = Pink)
+mode_normal = { fg = "#0B0F19", bg = "#00B4D8", bold = true }
+mode_select = { fg = "#0B0F19", bg = "#F498B8", bold = true }
+mode_unset  = { fg = "#0B0F19", bg = "#999999", bold = true }
+
+[filetype]
+rules = [
+    # Images
+    { mime = "image/*", fg = "#F498B8" },
+    # Videos
+    { mime = "video/*", fg = "#F498B8", bold = true },
+    # Archives
+    { mime = "application/*zip", fg = "#FF5555" },
+    { mime = "application/x-tar", fg = "#FF5555" },
+
+    # FIXED: Use 'mime' for directories, not 'is'
+    { mime = "inode/directory", fg = "#00B4D8", bold = true },
+
+    # Executables (This 'is' variant IS valid)
+    { is = "exec", fg = "#50FA7B", bold = true },
+]

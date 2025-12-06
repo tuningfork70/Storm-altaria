@@ -1,0 +1,65 @@
+/* --- RESET --- */
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* --- THE CONTAINER (Transparent to fix corners) --- */
+window {
+    background-color: transparent;
+}
+
+/* CLOUD (Styled Inner Box) --- */
+#outer-box {
+    margin: 5px;
+    border: 4px solid #8FB7D4;
+    background-color: #E6EFF5;
+    border-radius: 25px;
+
+    /* Tighter, cleaner shadow (or remove this line if you want it flat) */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); 
+}
+/* --- SEARCH BAR --- */
+#input {
+    margin: 10px;
+    border-radius: 100px;      /* Pill Shape */
+    border: none;
+    background-color: #FFFFFF; /* Pure White */
+    color: #181E23;            /* Dark Text */
+    padding: 10px 15px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* --- LIST AREA --- */
+#inner-box {
+    margin: 10px;
+    background-color: transparent;
+}
+
+/* --- APPS (Grid Items) --- */
+#entry {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    background-color: transparent;
+    color: #181E23;            /* Dark Text */
+}
+
+/* --- SELECTION (Pink Marshmallow) --- */
+#entry:selected {
+    background-color: #F498B8; /* Cutesy Pink */
+    color: #FFFFFF;            /* White Text */
+    font-weight: bold;
+    border-radius: 15px;
+    
+    /* Pink Glow */
+    box-shadow: 0 4px 10px rgba(244, 152, 184, 0.5);
+}
+
+/* --- ICONS --- */
+#img {
+    margin-right: 10px;
+    background-color: transparent;
+}
